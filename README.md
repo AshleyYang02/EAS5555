@@ -1,16 +1,21 @@
 # EAS5555 - SP24
 GitHub Repository for EAS 5555 Numerical Techniques for Weather and Climate Modeling
-We'll use markdown to write this file. Read more about Markdown here: https://www.markdownguide.org/basic-syntax/
 
-# MATTHEW TUTORIAL
+Course taught at Cornell University by Dr. Toby R. Ault in the Spring 2024 Semester
+
+We'll use markdown to write this file. Read more about Markdown here: https://www.markdownguide.org/basic-syntax/  
+
+
+## MATTHEW TUTORIAL
 
 We are following the UCAR Hurricane Matthew tutorial: https://www2.mmm.ucar.edu/wrf/OnLineTutorial/
+
 This gives us an introduction to running WRF on a local processor
 
 
 ## [0] Logging into Derecho
 
-Type: ssh -y <username>@derecho.hpc.ucar.edu
+Type: ssh -x -y <username>@derecho.hpc.ucar.edu
 Enter UCAR password and authenticate Duo push
 
 ## [1] Copy WRF and WPS Executables
@@ -104,15 +109,15 @@ Edit namelist.wps by typing: emacs namelist.wps
 
 > Set the following:
 >
->> max_dom = 1
+>>     max_dom = 1
 >>
->> start_date = '2016-10-06_00:00:00',
+>>     start_date = '2016-10-06_00:00:00',
 >>
->> end_date = '2016-10-08_00:00:00',
+>>     end_date = '2016-10-08_00:00:00',
 >>
->> interval_seconds = 21600,
+>>     interval_seconds = 21600,
 >>
->> prefix = 'FILE',
+>>     prefix = 'FILE',
 >>
 > To save changes to the file, hit Ctrl + X, then Ctrl + C
 
@@ -122,23 +127,23 @@ Run ungrib by typing: ungrib.exe
 
 > This creates the following intermediate files:
 >
->> FILE:2016-10-06_00
+>>     FILE:2016-10-06_00
 >>
->> FILE:2016-10-06_06
+>>     FILE:2016-10-06_06
 >>
->> FILE:2016-10-06_12
+>>     FILE:2016-10-06_12
 >>
->> FILE:2016-10-06_18
+>>     FILE:2016-10-06_18
 >>
->> FILE:2016-10-07_00
+>>     FILE:2016-10-07_00
 >>
->> FILE:2016-10-07_06
+>>     FILE:2016-10-07_06
 >>
->> FILE:2016-10-07_12
+>>     FILE:2016-10-07_12
 >>
->> FILE:2016-10-07_18
+>>     FILE:2016-10-07_18
 >>
->> FILE:2016-10-08_00
+>>     FILE:2016-10-08_00
 >>
 > Check that the log file ungrib.log has all the same fields as vtable by typing: emacs ungrib.log
 >
@@ -150,39 +155,39 @@ Edit namelist.wps by typing: emacs namelist.wps
 
 > Make the following changes:
 >
->> max_dom = 1
+>>     max_dom = 1
 >> 
->> parent_id = 1,
+>>     parent_id = 1,
 >> 
->> parent_grid_ratio = 1,
+>>     parent_grid_ratio = 1,
 >> 
->> i_parent_start = 1,
+>>     i_parent_start = 1,
 >> 
->> j_parent_start = 1,
+>>     j_parent_start = 1,
 >> 
->> e_we = 91,
+>>     e_we = 91,
 >> 
->> e_sn = 100,
+>>     e_sn = 100,
 >> 
->> geog_data_res = 'default',
+>>     geog_data_res = 'default',
+>>   
+>>     dx = 27000,
 >> 
->> dx = 27000,
+>>     dy = 27000,
 >> 
->> dy = 27000,
+>>     map_proj = 'mercator',
 >> 
->> map_proj = 'mercator',
+>>     ref_lat = 28.00,
 >> 
->> ref_lat = 28.00,
+>>     ref_lon = -75.00,
 >> 
->> ref_lon = -75.00,
+>>     truelat1 = 30.0,
 >> 
->> truelat1 = 30.0,
+>>     truelat2 = 60.0,
 >> 
->> truelat2 = 60.0,
+>>     stand_lon = -75.0,
 >> 
->> stand_lon = -75.0,
->> 
->> geog_data_path = 'Your WPS_GEOG data location'
+>>     geog_data_path = 'Your WPS_GEOG data location'
 >
 > To save changes to the file, hit Ctrl + X, then Ctrl + C
 
@@ -212,23 +217,23 @@ Run metgrid.exe to interpolate the input data on the model (WRF) domain by typin
 >> 
 > The following files should have been created in the WPS directory:
 > 
->> met_em.d01.2016-10-06_00:00:00.nc
+>>     met_em.d01.2016-10-06_00:00:00.nc
 >> 
->> met_em.d01.2016-10-06_06:00:00.nc
+>>     met_em.d01.2016-10-06_06:00:00.nc
 >>
->> met_em.d01.2016-10-06_12:00:00.nc
+>>     met_em.d01.2016-10-06_12:00:00.nc
 >>
->> met_em.d01.2016-10-06_18:00:00.nc
+>>     met_em.d01.2016-10-06_18:00:00.nc
 >>
->> met_em.d01.2016-10-07_00:00:00.nc
+>>     met_em.d01.2016-10-07_00:00:00.nc
 >>
->> met_em.d01.2016-10-07_06:00:00.nc
+>>     met_em.d01.2016-10-07_06:00:00.nc
 >>
->> met_em.d01.2016-10-07_12:00:00.nc
+>>     met_em.d01.2016-10-07_12:00:00.nc
 >>
->> met_em.d01.2016-10-07_18:00:00.nc
+>>     met_em.d01.2016-10-07_18:00:00.nc
 >>
->> met_em.d01.2016-10-08_00:00:00.nc
+>>     met_em.d01.2016-10-08_00:00:00.nc
 
 ## [10] Prepare to run wrf.exe
 
@@ -248,86 +253,86 @@ Edit namelist.input by typing: emacs namelist.input
 
 > Make the following changes:
 > 
->> run_days = 0,
+>>     run_days = 0,
 >> 
->> run_hours = 48,
+>>     run_hours = 48,
 >>
->>  run_minutes = 0,
+>>     run_minutes = 0,
 >>
->> run_seconds = 0,
+>>     run_seconds = 0,
 >>
->> start_year = 2016,
+>>     start_year = 2016,
 >>
->> start_month = 10,
+>>     start_month = 10,
 >>
->> start_day = 06,
+>>     start_day = 06,
 >>
->> start_hour = 00,
+>>     start_hour = 00,
 >>
->> end_year = 2016,
+>>     end_year = 2016,
 >>
->> end_month = 10,
+>>     end_month = 10,
 >>
->> end_day = 08,
+>>     end_day = 08,
 >>
->> end_hour = 00,
+>>     end_hour = 00,
 >>
->> interval_seconds = 21600
+>>     interval_seconds = 21600
 >>
->> input_from_file = .true.,
+>>     input_from_file = .true.,
 >>
->> history_interval = 180,
+>>     history_interval = 180,
 >>
->> frames_per_outfile = 1,
+>>     frames_per_outfile = 1,
 >>
->> restart = .false.,
+>>     restart = .false.,
 >>
->> restart_interval = 1440,
+>>     restart_interval = 1440,
 >>
->> time_step = 150,
+>>     time_step = 150,
 >>
->> max_dom = 1,
+>>     max_dom = 1,
 >>
->> e_we = 91,
+>>     e_we = 91,
 >>
->> e_sn = 100,
+>>     e_sn = 100,
 >>
->> e_vert = 45,
+>>     e_vert = 45,
 >>
->> num_metgrid_levels = 32
+>>     num_metgrid_levels = 32
 >>
->> dx = 27000,
+>>     dx = 27000,
 >>
->>  dy = 27000,
+>>     dy = 27000,
 >> 
 > To save changes to the file, hit Ctrl + X, then Ctrl + C
 
 Run real.exe by typing: ./real.exe
 
 > Check that the following two files have been created:
-
->> wrfinput_d01
+>
+>>     wrfinput_d01
 >> 
->> wrfbdy_d01
+>>     wrfbdy_d01
 >> 
 After running, check that the program ran correctly by typing the linux command: cat rsl.error.0000 
 
 > If successful, the following should appear at the bottom of the output:
 > 
->> ...
+>>     ...
+>>    
+>>     
+>>      Assume Noah LSM input
 >>
->> 
->>  Assume Noah LSM input
+>>     d01 2016-10-08_00:00:00 forcing artificial silty clay loam at    9 points, out of   8910
 >>
->> d01 2016-10-08_00:00:00 forcing artificial silty clay loam at    9 points, out of   8910
+>>     d01 2016-10-08_00:00:00 Timing for processing          0 s.
 >>
->> d01 2016-10-08_00:00:00 Timing for processing          0 s.
+>>     d01 2016-10-08_00:00:00 Timing for output          0 s.
 >>
->> d01 2016-10-08_00:00:00 Timing for output          0 s.
+>>     d01 2016-10-08_00:00:00 Timing for loop #    9 =          0 s.
 >>
->> d01 2016-10-08_00:00:00 Timing for loop #    9 =          0 s.
->>
->> d01 2016-10-08_00:00:00 real_em: SUCCESS COMPLETE REAL_EM INIT
+>>     d01 2016-10-08_00:00:00 real_em: SUCCESS COMPLETE REAL_EM INIT
 >>
 
 ## Run wrf.exe
@@ -336,45 +341,45 @@ Run wrf.exe by typing: ./wrf.exe
 
 > If successful, the following should appear:
 > 
->> wrfout_d01_2016-10-06_00:00:00
+>>     wrfout_d01_2016-10-06_00:00:00
 >> 
->> wrfout_d01_2016-10-06_03:00:00
+>>     wrfout_d01_2016-10-06_03:00:00
 >> 
->> wrfout_d01_2016-10-06_06:00:00
+>>     wrfout_d01_2016-10-06_06:00:00
 >>
->> wrfout_d01_2016-10-06_09:00:00
+>>     wrfout_d01_2016-10-06_09:00:00
 >>
->> wrfout_d01_2016-10-06_12:00:00
+>>     wrfout_d01_2016-10-06_12:00:00
 >>
->> wrfout_d01_2016-10-06_15:00:00
+>>     wrfout_d01_2016-10-06_15:00:00
 >>
->> wrfout_d01_2016-10-06_18:00:00
+>>     wrfout_d01_2016-10-06_18:00:00
 >>
->> wrfout_d01_2016-10-06_21:00:00
+>>     wrfout_d01_2016-10-06_21:00:00
 >>
->> wrfout_d01_2016-10-07_00:00:00
+>>     wrfout_d01_2016-10-07_00:00:00
 >>
->> wrfout_d01_2016-10-07_03:00:00
+>>     wrfout_d01_2016-10-07_03:00:00
 >>
->> wrfout_d01_2016-10-07_06:00:00
+>>     wrfout_d01_2016-10-07_06:00:00
 >>
->> wrfout_d01_2016-10-07_09:00:00
+>>     wrfout_d01_2016-10-07_09:00:00
 >> 
->> wrfout_d01_2016-10-07_12:00:00
+>>     wrfout_d01_2016-10-07_12:00:00
 >>
->> wrfout_d01_2016-10-07_15:00:00
+>>     wrfout_d01_2016-10-07_15:00:00
 >>
->> wrfout_d01_2016-10-07_18:00:00
+>>     wrfout_d01_2016-10-07_18:00:00
 >>
->> wrfout_d01_2016-10-07_21:00:00
+>>     wrfout_d01_2016-10-07_21:00:00
 >>
->> wrfout_d01_2016-10-08_00:00:00
+>>     wrfout_d01_2016-10-08_00:00:00
 >>
->> wrfrst_d01_2016-10-07_00:00:00
+>>     wrfrst_d01_2016-10-07_00:00:00
 >>
->> wrfrst_d01_2016-10-08_00:00:00
+>>     wrfrst_d01_2016-10-08_00:00:00
 
-check the contents of the wrfout file
+Check the contents of the wrfout file
 
 > Use the ncdump utility:
 >
