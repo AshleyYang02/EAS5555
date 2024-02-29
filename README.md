@@ -15,7 +15,7 @@ This gives us an introduction to running WRF on a local processor
 
 ## [0] Logging into Derecho
 
-Type: ssh -x -y <username>@derecho.hpc.ucar.edu
+Type: ssh -x -y [username]@derecho.hpc.ucar.edu
 Enter UCAR password and authenticate Duo push
 
 ## [1] Copy WRF and WPS Executables
@@ -394,4 +394,30 @@ Check the contents of the wrfout file
 
 Display the model output using graphical tools
 
+## [11] Submitting a job to Derecho
+
+In the same folder as wrf.exe, edit the cshell script by typing: nano run_wrf.csh
+
+> Paste the following code snippet into the terminal, adjusting as needed:
+>
+>>     #!/bin/csh
+>>     #PBS -N run_wrf
+>>     #PBS -A UCOR0073
+>>     #PBS -q main
+>>     #PBS -l walltime=5:01:00
+>>     #PBS -l select=8:ncpus=32:mpiprocs=32:ompthreads=1
+>>     
+>>     limit stacksize unlimited
+>>     setenv MPI_SHEPHERD true
+>>     cd /<path>/<to>/<wrf>/test/em_real/
+>>     
+>>     ###mpiexec_mpt -n 64 ./wrf.exe
+>>     ###mpiexec_mpt dplace -s 1 ./wrf.exe
+>>     
+>>     #-derecho 
+>>     mpiexec -n 32 -ppn 32 ./wrf.exe
+>
+> Save the script by hitting Ctrl + X and then Y
+
+Submit the job to the scheduler by typing: qsub run_wrf.csh
 
