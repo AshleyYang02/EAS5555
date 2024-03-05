@@ -394,6 +394,11 @@ Check the contents of the wrfout file
 
 Display the model output using graphical tools
 
+> Type: module load ncview
+>
+> Type: ncview [filename]
+
+
 ## [11] Submitting a job to Derecho
 
 In the same folder as wrf.exe, edit the cshell script by typing: nano run_wrf.csh
@@ -417,7 +422,13 @@ In the same folder as wrf.exe, edit the cshell script by typing: nano run_wrf.cs
 >>     #-derecho 
 >>     mpiexec -n 32 -ppn 32 ./wrf.exe
 >
-> Save the script by hitting Ctrl + X and then Y
+> Save the script by hitting Ctrl + X and then Ctrl + C
 
 Submit the job to the scheduler by typing: qsub run_wrf.csh
+
+> Check status of job by typing: qstat [derecho_username]
+
+
+A reformatted document with additional information on gaining access to Derecho can be found here:
+https://docs.google.com/document/d/1hkH2shw6qyIkiOd5w_k8n0FQ0tyhZUm02h2B391aKAA/edit
 
